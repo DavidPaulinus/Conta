@@ -2,6 +2,8 @@ package br.com.conta.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +31,13 @@ public class ContaController {
 									.buildAndExpand(_conta.getId()).toUri()
 									)
 									.body(new DetalharContaDTO(_conta));
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<DetalharContaDTO> detalharConta(@PathVariable Long id){
+		var _conta = serv.detalharContaPorId(id);
+		
+		return ResponseEntity.ok(new DetalharContaDTO(_conta));
 	}
 	
 }

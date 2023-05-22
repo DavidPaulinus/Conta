@@ -18,5 +18,9 @@ public class ContaService {
 		
 		return _conta;
 	}
+
+	public Conta detalharContaPorId(Long id) {
+		return repo.findById(id).orElseThrow(() -> new RuntimeException("Conta não encontrada"));
+	}
 	
 }

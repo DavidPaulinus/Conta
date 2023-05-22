@@ -3,7 +3,6 @@ package br.com.conta.model;
 import java.time.LocalDate;
 
 import br.com.conta.model.dto.ContaDTO;
-import br.com.conta.service.util.Sistema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
