@@ -2,6 +2,7 @@ package br.com.conta.model;
 
 import java.time.LocalDate;
 
+import br.com.conta.model.dto.ContaAtualizarDTO;
 import br.com.conta.model.dto.ContaDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,6 +33,12 @@ public class Conta {
 		this.saldo = dto.saldo();
 		this.dataCriacao = LocalDate.now();
 		this.vencimento = dataCriacao.plusMonths(85);
+	}
+
+	public void atualizar(ContaAtualizarDTO dto) {
+		this.titular = dto.titular();
+		this.saldo = dto.saldo();
+		this.vencimento = dto.vencimento();
 	}
 	
 }
