@@ -46,8 +46,8 @@ public class Conta {
 		this.saldo += valor;
 	}
 
-	public void sacar(DepositoDTO valor) {
-		this.saldo -= valor.valor();
+	public void sacar(Double valor) {
+		this.saldo -= valor;
 	}
 
 }
