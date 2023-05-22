@@ -27,7 +27,7 @@ public class Conta {
 	private Double saldo;
 	private LocalDate dataCriacao;
 	private LocalDate vencimento;
-	
+
 	public Conta(ContaDTO dto) {
 		this.titular = dto.titular();
 		this.saldo = dto.saldo();
@@ -40,5 +40,9 @@ public class Conta {
 		this.saldo = dto.saldo();
 		this.vencimento = dto.vencimento();
 	}
-	
+
+	public void depositar(Double valor) {
+		this.saldo += valor;
+	}
+
 }
