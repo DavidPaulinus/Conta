@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.conta.model.dto.DepositoDTO;
 import br.com.conta.model.dto.DetalharContaDTO;
+import br.com.conta.model.dto.TranferenciaDTO;
 import br.com.conta.service.BancoService;
 import jakarta.transaction.Transactional;
 
@@ -35,4 +36,12 @@ public class FuncoesBancoController {
 		return ResponseEntity.ok(new DetalharContaDTO(_conta));
 	}
 
+	@PutMapping("/{id}/tranferir")
+	@Transactional
+	public ResponseEntity<DetalharContaDTO> tranferir(@PathVariable Long id, @RequestBody TranferenciaDTO dto){
+		var _conta = serv.transferir(id, dto);
+		
+		return ResponseEntity.ok(new DetalharContaDTO(_conta));
+	}
+	
 }
