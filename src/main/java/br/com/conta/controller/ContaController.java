@@ -2,6 +2,7 @@ package br.com.conta.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,31 +24,37 @@ public class ContaController {
 
 	@Autowired
 	private ContaService serv;
-	
+
 	@PostMapping("/criar")
 	@Transactional
 	public ResponseEntity<DetalharContaDTO> criarNovaConta(@RequestBody ContaDTO dto, UriComponentsBuilder uri) {
 		var _conta = serv.criarNovaConta(dto);
-		
-		return ResponseEntity.created(uri.path("/conta/criar")
-									.buildAndExpand(_conta.getId()).toUri()
-									)
-									.body(new DetalharContaDTO(_conta));
+
+		return ResponseEntity.created(uri.path("/conta/criar").buildAndExpand(_conta.getId()).toUri())
+				.body(new DetalharContaDTO(_conta));
 	}
-	
+
 	@GetMapping("/{id}")
-	public ResponseEntity<DetalharContaDTO> detalharConta(@PathVariable Long id){
+	public ResponseEntity<DetalharContaDTO> detalharConta(@PathVariable Long id) {
 		var _conta = serv.detalharContaPorId(id);
-		
+
 		return ResponseEntity.ok(new DetalharContaDTO(_conta));
 	}
-	
+
 	@PutMapping("/{id}")
 	@Transactional
-	public ResponseEntity<DetalharContaDTO> atualizarConta(@PathVariable Long id, @RequestBody ContaAtualizarDTO dto){
+	public ResponseEntity<DetalharContaDTO> atualizarConta(@PathVariable Long id, @RequestBody ContaAtualizarDTO dto) {
 		var _conta = serv.atualizarPorId(id, dto);
-		
+
 		return ResponseEntity.ok(new DetalharContaDTO(_conta));
 	}
-	
+
+	@DeleteMapping("/{id}")
+	@Transactional
+	public ResponseEntity<String> apagarConta(@PathVariable Long id) {
+		var _conta = serv.apagarContaPorId(id);
+
+		return ResponseEntity.ok(_conta);
+	}
+
 }
