@@ -5,11 +5,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.conta.model.dto.ContaAtualizarDTO;
 import br.com.conta.model.dto.ContaDTO;
 import br.com.conta.model.dto.DetalharContaDTO;
 import br.com.conta.service.ContaService;
@@ -36,6 +38,14 @@ public class ContaController {
 	@GetMapping("/{id}")
 	public ResponseEntity<DetalharContaDTO> detalharConta(@PathVariable Long id){
 		var _conta = serv.detalharContaPorId(id);
+		
+		return ResponseEntity.ok(new DetalharContaDTO(_conta));
+	}
+	
+	@PutMapping("/{id}")
+	@Transactional
+	public ResponseEntity<DetalharContaDTO> atualizarConta(@PathVariable Long id, @RequestBody ContaAtualizarDTO dto){
+		var _conta = serv.atualizarPorId(id, dto);
 		
 		return ResponseEntity.ok(new DetalharContaDTO(_conta));
 	}
