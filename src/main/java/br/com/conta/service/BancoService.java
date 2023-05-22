@@ -17,6 +17,15 @@ public class BancoService {
 		
 		return _conta;
 	}
+
+	public Conta sacar(Long id, DepositoDTO valor) {
+		if(valor.valor() > 100) throw new RuntimeException("Valor excedeu o limite!");
+			
+		var _conta = serv.detalharContaPorId(id);		
+		_conta.sacar(valor);
+		
+		return _conta;
+	}
 	
 	
 }

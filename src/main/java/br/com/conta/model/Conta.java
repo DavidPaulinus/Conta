@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import br.com.conta.model.dto.ContaAtualizarDTO;
 import br.com.conta.model.dto.ContaDTO;
+import br.com.conta.model.dto.DepositoDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -43,6 +44,10 @@ public class Conta {
 
 	public void depositar(Double valor) {
 		this.saldo += valor;
+	}
+
+	public void sacar(DepositoDTO valor) {
+		this.saldo -= valor.valor();
 	}
 
 }
