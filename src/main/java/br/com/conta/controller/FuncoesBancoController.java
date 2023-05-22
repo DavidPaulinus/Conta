@@ -26,5 +26,13 @@ public class FuncoesBancoController {
 
 		return ResponseEntity.ok(new DetalharContaDTO(_conta));
 	}
+	
+	@PutMapping("/{id}/saque")
+	@Transactional
+	public ResponseEntity<DetalharContaDTO> sacar(@PathVariable Long id, @RequestBody DepositoDTO valor){
+		var _conta = serv.sacar(id, valor);
+		
+		return ResponseEntity.ok(new DetalharContaDTO(_conta));
+	}
 
 }
