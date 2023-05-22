@@ -16,7 +16,7 @@ public class ContaService {
 	public Conta criarNovaConta(ContaDTO dto) {
 		var _conta = new Conta(dto);
 		repo.save(_conta);
-		
+
 		return _conta;
 	}
 
@@ -26,10 +26,16 @@ public class ContaService {
 
 	public Conta atualizarPorId(Long id, ContaAtualizarDTO dto) {
 		var _conta = detalharContaPorId(id);
-		
+
 		_conta.atualizar(dto);
-		
+
 		return _conta;
 	}
-	
+
+	public String apagarContaPorId(Long id) {
+		repo.deleteById(id);
+
+		return "Conta apagada com sucesso!";
+	}
+
 }
