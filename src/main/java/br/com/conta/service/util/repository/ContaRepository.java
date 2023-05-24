@@ -8,4 +8,8 @@ import br.com.conta.model.Conta;
 @Repository
 public interface ContaRepository extends JpaRepository<Conta, Long> {
 
+	Conta findByNumero(Long numero);
+
+	void deleteByNumero(Long numero);
+
 }

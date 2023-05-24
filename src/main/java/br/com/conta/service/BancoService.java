@@ -12,32 +12,32 @@ public class BancoService {
 	@Autowired
 	private ContaService serv;
 
-	public Conta depositar(Long id, DepositoDTO valor) {
-		var _conta = serv.detalharContaPorId(id);
+	public Conta depositar(Long numero, DepositoDTO valor) {
+		var _conta = serv.detalharContaPorNumero(numero);
 		_conta.depositar(valor.valor());
-		
+
 		return _conta;
 	}
 
-	public Conta sacar(Long id, DepositoDTO valor) {
+	public Conta sacar(Long numero, DepositoDTO valor) {
 		var _valor = valor.valor();
-		if(_valor > 100) throw new RuntimeException("Valor excedeu o limite!");
-			
-		var _conta = serv.detalharContaPorId(id);		
+		if (_valor > 100)
+			throw new RuntimeException("Valor excedeu o limite!");
+
+		var _conta = serv.detalharContaPorNumero(numero);
 		_conta.sacar(_valor);
-		
+
 		return _conta;
 	}
 
-	public Conta transferir(Long id, TranferenciaDTO dto) {
-		var _contaOrigem = serv.detalharContaPorId(id);
-		var _contaDestino = serv.detalharContaPorId(dto.id());
-		
+	public Conta transferir(Long numero, TranferenciaDTO dto) {
+		var _contaOrigem = serv.detalharContaPorNumero(numero);
+		var _contaDestino = serv.detalharContaPorNumero(dto.numero());
+
 		_contaOrigem.sacar(dto.valor());
 		_contaDestino.depositar(dto.valor());
-		
+
 		return _contaOrigem;
 	}
-	
-	
+
 }

@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.conta.model.dto.DepositoDTO;
-import br.com.conta.model.dto.DetalharContaDTO;
 import br.com.conta.model.dto.TranferenciaDTO;
+import br.com.conta.model.dto.conta.DetalharContaDTO;
 import br.com.conta.service.BancoService;
 import jakarta.transaction.Transactional;
 
@@ -20,28 +20,28 @@ public class FuncoesBancoController {
 	@Autowired
 	private BancoService serv;
 
-	@PutMapping("/{id}")
+	@PutMapping("/{numero}")
 	@Transactional
-	public ResponseEntity<DetalharContaDTO> depositar(@PathVariable Long id, @RequestBody DepositoDTO valor) {
-		var _conta = serv.depositar(id, valor);
+	public ResponseEntity<DetalharContaDTO> depositar(@PathVariable Long numero, @RequestBody DepositoDTO valor) {
+		var _conta = serv.depositar(numero, valor);
 
 		return ResponseEntity.ok(new DetalharContaDTO(_conta));
 	}
-	
-	@PutMapping("/{id}/saque")
+
+	@PutMapping("/{numero}/saque")
 	@Transactional
-	public ResponseEntity<DetalharContaDTO> sacar(@PathVariable Long id, @RequestBody DepositoDTO valor){
-		var _conta = serv.sacar(id, valor);
-		
+	public ResponseEntity<DetalharContaDTO> sacar(@PathVariable Long numero, @RequestBody DepositoDTO valor) {
+		var _conta = serv.sacar(numero, valor);
+
 		return ResponseEntity.ok(new DetalharContaDTO(_conta));
 	}
 
-	@PutMapping("/{id}/tranferir")
+	@PutMapping("/{numero}/transferir")
 	@Transactional
-	public ResponseEntity<DetalharContaDTO> tranferir(@PathVariable Long id, @RequestBody TranferenciaDTO dto){
-		var _conta = serv.transferir(id, dto);
-		
+	public ResponseEntity<DetalharContaDTO> tranferir(@PathVariable Long numero, @RequestBody TranferenciaDTO dto) {
+		var _conta = serv.transferir(numero, dto);
+
 		return ResponseEntity.ok(new DetalharContaDTO(_conta));
 	}
-	
+
 }
