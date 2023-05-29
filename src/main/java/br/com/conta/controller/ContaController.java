@@ -14,6 +14,7 @@ import br.com.conta.model.dto.conta.ContaDTO;
 import br.com.conta.model.dto.conta.DetalharContaDTO;
 import br.com.conta.service.ContaService;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/conta")
@@ -23,7 +24,7 @@ public class ContaController {
 
 	@PostMapping("/criar")
 	@Transactional
-	public ResponseEntity<DetalharContaDTO> criarNovaConta(@RequestBody ContaDTO dto, UriComponentsBuilder uri) {
+	public ResponseEntity<DetalharContaDTO> criarNovaConta(@RequestBody @Valid ContaDTO dto, UriComponentsBuilder uri) {
 		var _conta = serv.criarNovaConta(dto);
 
 		return ResponseEntity.created(uri.path("/conta/criar").buildAndExpand(_conta.getId()).toUri())

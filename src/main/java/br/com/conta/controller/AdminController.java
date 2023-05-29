@@ -19,6 +19,7 @@ import br.com.conta.model.dto.conta.DetalharContaDTO;
 import br.com.conta.service.AdminService;
 import br.com.conta.service.ContaService;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/admin")
@@ -31,7 +32,7 @@ public class AdminController {
 	//configurações
 	@PostMapping("/config")
 	@Transactional
-	public ResponseEntity<DetalharConfiguracoesDTO> criarConfiguracoes(@RequestBody ConfigDTO dto, UriComponentsBuilder uri) {
+	public ResponseEntity<DetalharConfiguracoesDTO> criarConfiguracoes(@RequestBody @Valid ConfigDTO dto, UriComponentsBuilder uri) {
 		var _config = adminServ.criarConfig(dto);
 
 		return ResponseEntity.created(uri.path("/admin").buildAndExpand().toUri()).body(new DetalharConfiguracoesDTO(_config));
@@ -44,7 +45,7 @@ public class AdminController {
 
 	@PutMapping("/config/editar")
 	@Transactional
-	public ResponseEntity<DetalharConfiguracoesDTO> editarConfig(ConfigDTO dto) {
+	public ResponseEntity<DetalharConfiguracoesDTO> editarConfig(@Valid ConfigDTO dto) {
 		var _config = adminServ.editarConfigPorAtiva(dto);
 
 		return ResponseEntity.ok(new DetalharConfiguracoesDTO(_config));
@@ -59,7 +60,7 @@ public class AdminController {
 	//usuário
 	@PutMapping("/conta/{numero}")
 	@Transactional
-	public ResponseEntity<DetalharContaDTO> atualizarConta(@PathVariable Long numero, @RequestBody ContaAtualizarDTO dto) {
+	public ResponseEntity<DetalharContaDTO> atualizarConta(@PathVariable Long numero, @RequestBody @Valid ContaAtualizarDTO dto) {
 		var _conta = userServ.atualizarPorNumero(numero, dto);
 
 		return ResponseEntity.ok(new DetalharContaDTO(_conta));
