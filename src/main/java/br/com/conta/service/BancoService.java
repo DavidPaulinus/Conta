@@ -21,10 +21,11 @@ public class BancoService {
 
 	public Conta sacar(Long numero, DepositoDTO valor) {
 		var _valor = valor.valor();
-		if (_valor > 100)
+		var _conta = serv.detalharContaPorNumero(numero);
+		
+		if (_valor > _conta.getLimite())
 			throw new RuntimeException("Valor excedeu o limite!");
 
-		var _conta = serv.detalharContaPorNumero(numero);
 		_conta.sacar(_valor);
 
 		return _conta;

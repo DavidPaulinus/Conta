@@ -44,5 +44,4 @@ public class FuncoesBancoController {
 
 		return ResponseEntity.ok(new DetalharContaDTO(_conta));
 	}
-
 }

@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 
 public record DadosAutenticacaoDTO(
 		@NotNull
-		Integer numero,
+		Long numero,
 		@NotBlank
 		String senha) {
 
